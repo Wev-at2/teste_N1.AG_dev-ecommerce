@@ -1,0 +1,596 @@
+<!doctype html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GeekStore - Jogos, Consoles e Produtos Geek</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+    <!-- ── TOAST ── -->
+    <div class="toast" id="toast" role="status" aria-live="polite">
+        Produto adicionado ao carrinho!
+    </div>
+
+    <!-- ── MOBILE NAV ── -->
+    <div class="mobile-nav" id="mobileNav" role="dialog" aria-modal="true" aria-label="Menu de navegação">
+        <div class="mobile-nav__backdrop" onclick="closeMobileNav()"></div>
+        <div class="mobile-nav__drawer">
+            <div class="mobile-nav__header">
+                <span class="mobile-nav__logo">GeekStore</span>
+                <button class="mobile-nav__close" onclick="closeMobileNav()" aria-label="Fechar menu">
+                    ✕
+                </button>
+            </div>
+            <div class="mobile-search">
+                <input type="text" placeholder="Buscar produtos..." />
+                <button class="mobile-search-btn" aria-label="Buscar">
+                    <svg width="15" height="15" viewBox="0 0 16 16" fill="none">
+                        <circle cx="7" cy="7" r="5" stroke="white" stroke-width="1.5" />
+                        <path d="M11 11L14 14" stroke="white" stroke-width="1.5" stroke-linecap="round" />
+                    </svg>
+                </button>
+            </div>
+            <nav class="mobile-nav__links" aria-label="Menu principal">
+                <a href="#">Jogos</a>
+                <a href="#">Consoles</a>
+                <a href="#">PC Gaming</a>
+                <a href="#">Colecionáveis</a>
+                <a href="#">Ofertas</a>
+                <a href="#" style="color: var(--blue); margin-top: 12px">Minha Conta</a>
+                <a href="#" style="color: var(--text-muted)">Atendimento</a>
+            </nav>
+        </div>
+    </div>
+
+    <!-- ═══ HEADER ═══ -->
+    <header class="header">
+        <!-- Top bar -->
+        <div class="header__topbar">
+            <div class="header__topbar-inner">
+                <div class="header__topbar-left">
+                    <span>Frete grátis acima de R$ 199</span>
+                    <span>•</span>
+                    <span>12x sem juros</span>
+                </div>
+                <div class="header__topbar-right">
+                    <a href="#">Minha Conta</a>
+                    <a href="#">Atendimento</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Main row -->
+        <div class="header__main">
+            <div class="header__main-inner">
+                <button class="header__hamburger" onclick="openMobileNav()" aria-label="Abrir menu"
+                    aria-expanded="false">
+                    <span></span><span></span><span></span>
+                </button>
+                <a href="#" class="header__logo">GeekStore</a>
+                <div class="header__search" role="search">
+                    <label for="searchInput" class="sr-only">Buscar produtos</label>
+                    <input type="text" id="searchInput" placeholder="Buscar jogos, consoles, produtos geek..." />
+                    <button class="header__search-btn" aria-label="Buscar">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <circle cx="7" cy="7" r="5" stroke="white" stroke-width="1.5" />
+                            <path d="M11 11L14 14" stroke="white" stroke-width="1.5" stroke-linecap="round" />
+                        </svg>
+                    </button>
+                </div>
+                <div class="header__actions">
+                    <button class="header__action-btn header__action-login" aria-label="Entrar na conta">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                            <path d="M8 8C9.66 8 11 6.66 11 5C11 3.34 9.66 2 8 2C6.34 2 5 3.34 5 5C5 6.66 6.34 8 8 8Z"
+                                stroke="#0A0A0A" stroke-width="1.33" />
+                            <path d="M2 13.5C2 11 4.5 9.5 8 9.5C11.5 9.5 14 11 14 13.5" stroke="#0A0A0A"
+                                stroke-width="1.33" stroke-linecap="round" />
+                        </svg>
+                        Entrar
+                    </button>
+                    <div class="header__cart-wrap">
+                        <button class="header__action-btn" id="cartBtn" aria-label="Carrinho de compras">
+                            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                                <path d="M1 1.5H3.2L4 5M4 5L5.5 11H12.5L14 5H4Z" stroke="#0A0A0A" stroke-width="1.33"
+                                    stroke-linecap="round" stroke-linejoin="round" />
+                                <circle cx="6.5" cy="13.5" r="1.2" stroke="#0A0A0A" stroke-width="1.1" />
+                                <circle cx="11.5" cy="13.5" r="1.2" stroke="#0A0A0A" stroke-width="1.1" />
+                            </svg>
+                            Carrinho
+                        </button>
+                        <span class="header__cart-badge" id="cartCount" aria-live="polite"
+                            aria-label="Itens no carrinho">0</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Category nav -->
+        <nav class="header__nav" aria-label="Categorias de produtos">
+            <div class="header__nav-inner">
+                <button class="header__nav-btn" aria-haspopup="true" aria-expanded="false">
+                    Jogos
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                        <path d="M3 4.5L6 7.5L9 4.5" stroke="#364153" stroke-width="1.1" stroke-linecap="round" />
+                    </svg>
+                </button>
+                <button class="header__nav-btn" aria-haspopup="true" aria-expanded="false">
+                    Consoles
+                    <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                        <path d="M3 4.5L6 7.5L9 4.5" stroke="#364153" stroke-width="1.1" stroke-linecap="round" />
+                    </svg>
+                </button>
+                <a href="#" class="header__nav-link">PC Gaming</a>
+                <a href="#" class="header__nav-link">Colecionáveis</a>
+                <a href="#" class="header__nav-link">Ofertas</a>
+            </div>
+        </nav>
+    </header>
+
+    <!-- ═══ BLACK FRIDAY COUNTDOWN ═══ -->
+    <div class="countdown-bar" role="complementary" aria-label="Contador regressivo Black Friday">
+        <div class="countdown-bar__inner">
+            <span class="countdown-bar__label">⚡ Black Friday</span>
+            <div class="countdown-timer" aria-live="polite">
+                <div class="countdown-unit">
+                    <span class="countdown-unit__val" id="cdDays">00</span>
+                    <span class="countdown-unit__lbl">dias</span>
+                </div>
+                <span class="countdown-sep">:</span>
+                <div class="countdown-unit">
+                    <span class="countdown-unit__val" id="cdHours">00</span>
+                    <span class="countdown-unit__lbl">horas</span>
+                </div>
+                <span class="countdown-sep">:</span>
+                <div class="countdown-unit">
+                    <span class="countdown-unit__val" id="cdMins">00</span>
+                    <span class="countdown-unit__lbl">min</span>
+                </div>
+                <span class="countdown-sep">:</span>
+                <div class="countdown-unit">
+                    <span class="countdown-unit__val" id="cdSecs">00</span>
+                    <span class="countdown-unit__lbl">seg</span>
+                </div>
+            </div>
+            <span class="countdown-bar__tag">— até 60% de desconto em toda a loja</span>
+        </div>
+    </div>
+
+    <!-- ═══ HERO BANNER ═══ -->
+    <section class="hero" aria-label="Banners principais">
+        <div class="hero__track" id="heroTrack">
+            <!-- Slide 1 -->
+            <div class="hero__slide" role="group" aria-label="Slide 1 de 3">
+                <div class="hero__bg" style="
+              background-image: url(&quot;https://images.unsplash.com/photo-1593305841991-05c297ba4575?w=1200&q=80&quot;);
+            "></div>
+                <div class="hero__overlay"></div>
+                <div class="hero__content">
+                    <p class="hero__label">Os Melhores Jogos de 2024</p>
+                    <h1 class="hero__title">Novos Lançamentos</h1>
+                    <p class="hero__desc">
+                        Descubra os títulos mais esperados do ano com até 30% de desconto
+                    </p>
+                    <a href="#" class="btn-yellow">Ver Ofertas</a>
+                </div>
+            </div>
+            <!-- Slide 2 -->
+            <div class="hero__slide" role="group" aria-label="Slide 2 de 3">
+                <div class="hero__bg" style="
+              background-image: url(&quot;https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?w=1200&q=80&quot;);
+            "></div>
+                <div class="hero__overlay"></div>
+                <div class="hero__content">
+                    <p class="hero__label">Monte Seu Setup dos Sonhos</p>
+                    <h1 class="hero__title">Setup Gamer</h1>
+                    <p class="hero__desc">
+                        Tudo que você precisa para um setup completo com preços incríveis
+                    </p>
+                    <a href="#" class="btn-yellow">Explorar</a>
+                </div>
+            </div>
+            <!-- Slide 3 -->
+            <div class="hero__slide" role="group" aria-label="Slide 3 de 3">
+                <div class="hero__bg" style="
+              background-image: url(&quot;https://images.unsplash.com/photo-1608501821300-4f99e58bba77?w=1200&q=80&quot;);
+            "></div>
+                <div class="hero__overlay"></div>
+                <div class="hero__content">
+                    <p class="hero__label">Produtos Exclusivos</p>
+                    <h1 class="hero__title">Colecionáveis</h1>
+                    <p class="hero__desc">
+                        Action figures, estátuas e itens raros para verdadeiros fãs
+                    </p>
+                    <a href="#" class="btn-yellow">Ver Coleção</a>
+                </div>
+            </div>
+        </div>
+
+        <button class="hero__arrow hero__arrow--prev" onclick="heroMove(-1)" aria-label="Slide anterior">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M10 12L6 8L10 4" stroke="white" stroke-width="1.5" stroke-linecap="round" />
+            </svg>
+        </button>
+        <button class="hero__arrow hero__arrow--next" onclick="heroMove(1)" aria-label="Próximo slide">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                <path d="M6 4L10 8L6 12" stroke="white" stroke-width="1.5" stroke-linecap="round" />
+            </svg>
+        </button>
+
+        <div class="hero__dots" role="tablist" aria-label="Navegação dos slides">
+            <button class="hero__dot active" onclick="heroGoTo(0)" role="tab" aria-selected="true"
+                aria-label="Ir para slide 1"></button>
+            <button class="hero__dot" onclick="heroGoTo(1)" role="tab" aria-selected="false"
+                aria-label="Ir para slide 2"></button>
+            <button class="hero__dot" onclick="heroGoTo(2)" role="tab" aria-selected="false"
+                aria-label="Ir para slide 3"></button>
+        </div>
+    </section>
+
+    <!-- ═══ BENEFITS BAR ═══ -->
+    <section class="benefits" aria-label="Benefícios da loja">
+        <div class="benefits__grid">
+            <div class="benefit">
+                <svg class="benefit__icon" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+                    <path d="M4 12L9 7H17" stroke="#09235C" stroke-width="2.67" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    <path d="M27 16L20 9H4V22" stroke="#09235C" stroke-width="2.67" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    <path d="M4 22H27V16" stroke="#09235C" stroke-width="2.67" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                    <circle cx="9" cy="26" r="2.5" stroke="#09235C" stroke-width="2.67" />
+                    <circle cx="22" cy="26" r="2.5" stroke="#09235C" stroke-width="2.67" />
+                </svg>
+                <div>
+                    <div class="benefit__name">Frete Grátis</div>
+                    <div class="benefit__desc">Acima de R$ 199</div>
+                </div>
+            </div>
+            <div class="benefit">
+                <svg class="benefit__icon" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+                    <rect x="2.67" y="6.67" width="26.67" height="18.67" rx="2" stroke="#09235C" stroke-width="2.67" />
+                    <path d="M2.67 13.33H29.33" stroke="#09235C" stroke-width="2.67" />
+                </svg>
+                <div>
+                    <div class="benefit__name">12x sem Juros</div>
+                    <div class="benefit__desc">No cartão de crédito</div>
+                </div>
+            </div>
+            <div class="benefit">
+                <svg class="benefit__icon" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+                    <path
+                        d="M16 2.67L5.33 7.33V16C5.33 21.89 9.87 27.41 16 29.33C22.13 27.41 26.67 21.89 26.67 16V7.33L16 2.67Z"
+                        stroke="#09235C" stroke-width="2.67" />
+                    <path d="M10.67 16L14 19.33L21.33 12" stroke="#09235C" stroke-width="2.67" stroke-linecap="round"
+                        stroke-linejoin="round" />
+                </svg>
+                <div>
+                    <div class="benefit__name">Compra Segura</div>
+                    <div class="benefit__desc">SSL e criptografia</div>
+                </div>
+            </div>
+            <div class="benefit">
+                <svg class="benefit__icon" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+                    <path
+                        d="M6 5.33C6 4.23 6.9 3.33 8 3.33H13L15.33 8L12.33 9.67C13.83 12.7 16.3 15.17 19.33 16.67L21 13.67L25.67 16C25.67 16 26.67 17 26.67 18V22.67C26.67 23.77 25.77 24.67 24.67 24.67C12.75 24.15 7.51 13.25 6 5.33Z"
+                        stroke="#09235C" stroke-width="2.67" stroke-linecap="round" stroke-linejoin="round" />
+                </svg>
+                <div>
+                    <div class="benefit__name">Atendimento</div>
+                    <div class="benefit__desc">Segunda a Sábado</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ PRODUCT SHOWCASE 1 ═══ -->
+    <section class="showcase">
+        <div class="container">
+            <div class="showcase__header">
+                <h2 class="showcase__title">Produtos em Destaque</h2>
+                <p class="showcase__subtitle">
+                    Os melhores jogos e acessórios selecionados especialmente para você
+                </p>
+            </div>
+            <div class="showcase__grid" id="grid1"><!-- renderizado via JS --></div>
+            <div class="showcase__cta">
+                <a href="#" class="btn-outline">Ver Todos os Produtos</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ MOSAIC BANNERS ═══ -->
+    <section class="mosaic">
+        <div class="mosaic__grid">
+            <div class="mosaic__main">
+                <div class="mosaic__bg" style="
+              background-image: url(&quot;https://images.unsplash.com/photo-1593305841991-05c297ba4575?w=900&q=80&quot;);
+            "></div>
+                <div class="mosaic__overlay"></div>
+                <div class="mosaic__content">
+                    <p class="mosaic__label">PS5 & Xbox Series X/S</p>
+                    <h3 class="mosaic__title">Console Generation</h3>
+                    <p class="mosaic__desc">
+                        Os consoles mais poderosos da nova geração
+                    </p>
+                    <a href="#" class="btn-yellow">Ver Consoles</a>
+                </div>
+            </div>
+            <div class="mosaic__side">
+                <div class="mosaic__card">
+                    <div class="mosaic__bg" style="
+                background-image: url(&quot;https://images.unsplash.com/photo-1569003339405-ea396a5a8a90?w=600&q=80&quot;);
+              "></div>
+                    <div class="mosaic__overlay"></div>
+                    <div class="mosaic__content">
+                        <p class="mosaic__label">Nostalgia em Alta</p>
+                        <h3 class="mosaic__title">Retro Gaming</h3>
+                        <p class="mosaic__desc">Clássicos que marcaram época</p>
+                        <a href="#" class="btn-yellow" style="padding: 6px 16px; font-size: 13px">Explorar</a>
+                    </div>
+                </div>
+                <div class="mosaic__card">
+                    <div class="mosaic__bg" style="
+                background-image: url(&quot;https://images.unsplash.com/photo-1612287230202-1ff1d85d1bdf?w=600&q=80&quot;);
+              "></div>
+                    <div class="mosaic__overlay"></div>
+                    <div class="mosaic__content">
+                        <p class="mosaic__label">Performance Máxima</p>
+                        <h3 class="mosaic__title">Acessórios Gaming</h3>
+                        <p class="mosaic__desc">Headsets, mouses e teclados pro</p>
+                        <a href="#" class="btn-yellow" style="padding: 6px 16px; font-size: 13px">Ver Acessórios</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ SEO BLOCK ═══ -->
+    <section class="seo">
+        <div class="seo__inner">
+            <div class="seo__head">
+                <h2 class="seo__title">
+                    GeekStore — Sua Loja de Games e Produtos Geek
+                </h2>
+                <p class="seo__subtitle">
+                    A maior variedade de jogos, consoles e acessórios do Brasil
+                </p>
+            </div>
+            <div class="seo__cols">
+                <div class="seo__col">
+                    <h3>Os Melhores Jogos e Consoles</h3>
+                    <p>
+                        Na GeekStore você encontra os lançamentos mais aguardados do
+                        mercado gamer, com títulos exclusivos para PlayStation, Xbox,
+                        Nintendo Switch e PC.
+                    </p>
+                    <p>
+                        Oferecemos também uma ampla gama de consoles, desde os mais
+                        recentes até os clássicos retro que marcaram gerações.
+                    </p>
+                </div>
+                <div class="seo__col">
+                    <h3>Acessórios e Produtos Geek</h3>
+                    <p>
+                        Complete seu setup gamer com nossos acessórios premium: headsets,
+                        teclados mecânicos, mouses de alta precisão e muito mais.
+                    </p>
+                    <p>
+                        Para os verdadeiros geeks, temos uma seção especial de
+                        colecionáveis, action figures e itens exclusivos dos seus
+                        universos favoritos.
+                    </p>
+                </div>
+            </div>
+            <div class="seo__stats">
+                <div>
+                    <div class="stat__num">5000+</div>
+                    <div class="stat__lbl">Produtos Disponíveis</div>
+                </div>
+                <div>
+                    <div class="stat__num">50k+</div>
+                    <div class="stat__lbl">Clientes Satisfeitos</div>
+                </div>
+                <div>
+                    <div class="stat__num">99%</div>
+                    <div class="stat__lbl">Avaliações Positivas</div>
+                </div>
+                <div>
+                    <div class="stat__num">24h</div>
+                    <div class="stat__lbl">Entrega Expressa</div>
+                </div>
+            </div>
+            <div class="seo__why">
+                <h3>Por que escolher a GeekStore?</h3>
+                <div class="why-grid">
+                    <div class="why-item">
+                        <div class="why-num">1</div>
+                        <h4>Preços Competitivos</h4>
+                        <p>
+                            Trabalhamos com margens reduzidas para oferecer sempre o melhor
+                            preço do mercado.
+                        </p>
+                    </div>
+                    <div class="why-item">
+                        <div class="why-num">2</div>
+                        <h4>Entrega Rápida</h4>
+                        <p>
+                            Entrega expressa em todo Brasil com frete grátis acima de R$
+                            199.
+                        </p>
+                    </div>
+                    <div class="why-item">
+                        <div class="why-num">3</div>
+                        <h4>Suporte Especializado</h4>
+                        <p>
+                            Nossa equipe é formada por gamers que entendem as suas
+                            necessidades.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ PRODUCT SHOWCASE 2 ═══ -->
+    <section class="showcase" style="padding-bottom: 64px">
+        <div class="container">
+            <div class="showcase__header">
+                <h2 class="showcase__title">Produtos em Destaque</h2>
+                <p class="showcase__subtitle">
+                    Os melhores jogos e acessórios selecionados especialmente para você
+                </p>
+            </div>
+            <div class="showcase__grid" id="grid2"><!-- renderizado via JS --></div>
+            <div class="showcase__cta">
+                <a href="#" class="btn-outline">Ver Todos os Produtos</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ═══ FOOTER ═══ -->
+    <footer>
+        <!-- Newsletter -->
+        <div class="footer__nl">
+            <h2 class="footer__nl-title">Fique por dentro das novidades</h2>
+            <p class="footer__nl-desc">
+                Receba primeiro as ofertas exclusivas, lançamentos e promoções
+                especiais
+            </p>
+            <form class="footer__nl-form" id="nlForm" novalidate>
+                <label for="nlEmail" style="
+              position: absolute;
+              width: 1px;
+              height: 1px;
+              overflow: hidden;
+              clip: rect(0 0 0 0);
+            ">Seu e-mail</label>
+                <input type="email" id="nlEmail" class="footer__nl-input" placeholder="Seu e-mail"
+                    autocomplete="email" />
+                <button type="submit" class="btn-yellow">Inscrever</button>
+            </form>
+            <div class="footer__nl-msg" id="nlMsg" role="alert" aria-live="polite"></div>
+        </div>
+
+        <!-- Columns -->
+        <div class="footer__body">
+            <div>
+                <div class="footer__brand-name">GeekStore</div>
+                <p class="footer__brand-desc">
+                    Sua loja especializada em games, consoles e produtos geek. Qualidade
+                    garantida e os melhores preços do mercado.
+                </p>
+                <div class="footer__socials">
+                    <a href="#" class="footer__social" aria-label="Facebook">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                            <path
+                                d="M10 2.67H8C6.9 2.67 6 3.57 6 4.67V6H4V8.67H6V13.33H8.67V8.67H10.5L11 6H8.67V4.67C8.67 4.3 8.97 4 9.33 4H11V2.67H10Z"
+                                stroke="white" stroke-width="1.2" stroke-linejoin="round" />
+                        </svg>
+                    </a>
+                    <a href="#" class="footer__social" aria-label="Instagram">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                            <rect x="1.5" y="1.5" width="13" height="13" rx="3" stroke="white" stroke-width="1.33" />
+                            <circle cx="8" cy="8" r="3" stroke="white" stroke-width="1.33" />
+                            <circle cx="11.5" cy="4.5" r=".6" fill="white" />
+                        </svg>
+                    </a>
+                    <a href="#" class="footer__social" aria-label="Twitter / X">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                            <path d="M1.5 2.5H5.5L8.5 7.5L12 2.5H14L9.5 9L14 13.5H10L7 8.5L3.5 13.5H1.5L6 7L1.5 2.5Z"
+                                stroke="white" stroke-width="1.1" stroke-linejoin="round" />
+                        </svg>
+                    </a>
+                    <a href="#" class="footer__social" aria-label="YouTube">
+                        <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+                            <rect x="1.33" y="3.5" width="13.33" height="9" rx="2" stroke="white" stroke-width="1.33" />
+                            <path d="M6.5 5.5L10.5 8L6.5 10.5V5.5Z" stroke="white" stroke-width="1.1"
+                                stroke-linejoin="round" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+
+            <div>
+                <div class="footer__col-title">Produtos</div>
+                <ul class="footer__links">
+                    <li><a href="#">PlayStation 5</a></li>
+                    <li><a href="#">Xbox Series X/S</a></li>
+                    <li><a href="#">Nintendo Switch</a></li>
+                    <li><a href="#">PC Gaming</a></li>
+                    <li><a href="#">Acessórios</a></li>
+                    <li><a href="#">Colecionáveis</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <div class="footer__col-title">Atendimento</div>
+                <ul class="footer__links">
+                    <li><a href="#">Central de Ajuda</a></li>
+                    <li><a href="#">Como Comprar</a></li>
+                    <li><a href="#">Trocas e Devoluções</a></li>
+                    <li><a href="#">Garantia</a></li>
+                    <li><a href="#">Frete e Entregas</a></li>
+                    <li><a href="#">Formas de Pagamento</a></li>
+                </ul>
+            </div>
+
+            <div>
+                <div class="footer__col-title">Contato</div>
+                <div class="footer__contact-row">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                        <path
+                            d="M3.33 4.17C3.33 3.25 4.08 2.5 5 2.5H7.92L9.58 6.25L7.5 7.5C8.75 10.08 10 11.25 12.5 12.5L13.75 10.42L17.5 12.08C17.5 12.08 17.5 13.75 17.5 14.17C17.5 15.08 16.75 15.83 15.83 15.83C8.67 15.42 4.25 10.58 3.33 4.17Z"
+                            stroke="#F5AB00" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+                    </svg>
+                    <span>(11) 3000-0000</span>
+                </div>
+                <div class="footer__contact-row">
+                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true">
+                        <rect x="1.5" y="3" width="15" height="12" rx="1.5" stroke="#F5AB00" stroke-width="1.5" />
+                        <path d="M1.5 5.25L9 10.5L16.5 5.25" stroke="#F5AB00" stroke-width="1.5"
+                            stroke-linecap="round" />
+                    </svg>
+                    <span>contato@geekstore.com.br</span>
+                </div>
+                <div class="footer__contact-row" style="align-items: flex-start">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" style="flex-shrink: 0; margin-top: 2px"
+                        aria-hidden="true">
+                        <path d="M10 2C7.24 2 5 4.24 5 7C5 10.75 10 17 10 17C10 17 15 10.75 15 7C15 4.24 12.76 2 10 2Z"
+                            stroke="#F5AB00" stroke-width="1.5" />
+                        <circle cx="10" cy="7" r="2" stroke="#F5AB00" stroke-width="1.5" />
+                    </svg>
+                    <div>
+                        <div>Rua dos Gamers, 123</div>
+                        <div>São Paulo — SP</div>
+                        <div>CEP: 01234-567</div>
+                    </div>
+                </div>
+                <div class="footer__hours-title">Horário de Atendimento</div>
+                <div class="footer__hours-text">
+                    Segunda a Sexta: 8h às 18h<br />Sábado: 8h às 14h
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom -->
+        <div class="footer__bottom">
+            <div class="footer__bottom-inner">
+                <span class="footer__copy">© 2024 GeekStore. Todos os direitos reservados.</span>
+                <div class="footer__legal">
+                    <a href="#">Política de Privacidade</a>
+                    <a href="#">Termos de Uso</a>
+                    <a href="#">Cookies</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="js/main.js" defer></script>
+</body>
+
+</html>
