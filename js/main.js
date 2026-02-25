@@ -5,25 +5,25 @@ const PRODUCTS = [
     {
         id: 1,
         name: 'TV de tubo para games retro',
-        img: '../assets/images/Image-tv-tubo-para-games-retro.png',
+        img: './assets/images/Image-tv-tubo-para-games-retro.png',
         price: 'R$ 89,99', oldPrice: 'R$ 129,99', discount: '-30%', rating: 4, reviews: 892
     },
     {
         id: 2,
         name: 'Zeldinha da massa para os nintendistas',
-        img: '../assets/images/image-zeldinha-da-massa-para-os-nintendistas.png',
+        img: './assets/images/image-zeldinha-da-massa-para-os-nintendistas.png',
         price: 'R$ 89,99', oldPrice: 'R$ 129,99', discount: '-30%', rating: 4, reviews: 892
     },
     {
         id: 3,
         name: 'Controller Wireless DualSense X2u7445547...',
-        img: '../assets/images/Image-Controller-Wireless-DualSense.png',
+        img: './assets/images/Image-Controller-Wireless-DualSense.png',
         price: 'R$ 89,99', oldPrice: 'R$ 129,99', discount: '-30%', rating: 4, reviews: 892
     },
     {
         id: 4,
         name: 'Gaming Mouse RGB Pro',
-        img: '../assets/images/image-Gaming-Mouse-RGB-Pro.png',
+        img: './assets/images/image-Gaming-Mouse-RGB-Pro.png',
         price: 'R$ 89,99', oldPrice: 'R$ 129,99', discount: '-30%', rating: 4, reviews: 892
     }
 ];
