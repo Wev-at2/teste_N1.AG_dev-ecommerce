@@ -1,0 +1,161 @@
+:root {
+    --primary-color: #09235c;
+    --secondary-color: #f5ab00;
+    --red: #fb2c36;
+    --white: #ffffff;
+    --bg-light: #f9fafb;
+    --bg-input: #f3f3f5;
+    --bg-card: #f3f4f6;
+    --border: #e5e7eb;
+    --text-dark: #101828;
+    --text-body: #364153;
+    --text-muted: #4a5565;
+    --text-faint: #6a7282;
+    --text-ph: #717182;
+    --r-sm: .5rem;
+    --r-md: .625rem;
+    --shadow: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.1);
+    --max-w: 1024px;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    color: var(--text-dark);
+    background: var(--white);
+    line-height: 1.5;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+button {
+    cursor: pointer;
+    border: none;
+    background: none;
+    font-family: inherit;
+}
+
+ul {
+    list-style: none;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+.container {
+    width: 100%;
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: 0 16px;
+}
+
+/* botões reutilizáveis */
+.btn-yellow {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 28px;
+    background: #F5AB00;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #09235C;
+    border: none;
+    cursor: pointer;
+    transition: opacity .15s;
+}
+
+.btn-yellow:hover {
+    opacity: .88;
+}
+
+.btn-yellow.btn-sm {
+    padding: 6px 16px;
+    font-size: 13px;
+}
+
+.btn-outline {
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 24px;
+    border: 1px solid #09235C;
+    border-radius: 8px;
+    background: #F9FAFB;
+    font-size: 14px;
+    font-weight: 500;
+    color: #09235C;
+    transition: background .15s;
+}
+
+.btn-outline:hover {
+    background: #E5E7EB;
+}
+
+.btn-add {
+    width: 100%;
+    height: 32px;
+    background: var(--primary-color);
+    color: white;
+    border-radius: var(--r-sm);
+    font-size: 14px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: background .15s;
+    margin-top: auto;
+}
+
+.btn-add:hover {
+    background: #0a2d73;
+}
+
+.btn-add:active {
+    transform: scale(.97);
+}
+
+.btn-add.adicionado {
+    background: #16a34a;
+}
+
+.btn-add:disabled {
+    opacity: .7;
+    cursor: not-allowed;
+}
+
+/* aviso carrinho */
+.wc-aviso {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    background: #16a34a;
+    color: white;
+    padding: 12px 20px;
+    border-radius: var(--r-sm);
+    font-size: 14px;
+    font-weight: 500;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, .2);
+    z-index: 1000;
+    transform: translateY(100px);
+    opacity: 0;
+    transition: transform .3s, opacity .3s;
+    pointer-events: none;
+}
+
+.wc-aviso.visivel {
+    transform: translateY(0);
+    opacity: 1;
+}

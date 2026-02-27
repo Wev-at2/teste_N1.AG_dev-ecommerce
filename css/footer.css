@@ -1,0 +1,160 @@
+footer {
+    background: var(--primary-color);
+    color: white;
+}
+
+.wc-rodape__newsletter {
+    padding: 48px 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, .1);
+    text-align: center;
+}
+
+.wc-rodape__newsletter h2 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.wc-rodape__newsletter p {
+    font-size: 15px;
+    color: rgba(255, 255, 255, .8);
+    margin-bottom: 24px;
+}
+
+.wc-rodape__newsletter form {
+    display: flex;
+    gap: 8px;
+    max-width: 448px;
+    margin: 0 auto;
+}
+
+.wc-rodape__newsletter input {
+    flex: 1;
+    height: 36px;
+    padding: 4px 12px;
+    background: white;
+    border: 2px solid transparent;
+    border-radius: var(--r-sm);
+    font-size: 14px;
+    font-family: inherit;
+    outline: none;
+    transition: border-color .15s;
+}
+
+.wc-rodape__newsletter input:is(:focus, :hover) {
+    border-color: var(--secondary-color);
+}
+
+.wc-rodape__newsletter input.erro {
+    border-color: #fb6b74;
+}
+
+.wc-rodape__newsletter-msg {
+    font-size: 13px;
+    margin-top: 8px;
+    min-height: 18px;
+    display: block;
+}
+
+.wc-rodape__newsletter-msg.erro {
+    color: #fb6b74;
+}
+
+.wc-rodape__newsletter-msg.ok {
+    color: #4ade80;
+}
+
+.wc-rodape__body {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    padding: 40px 16px;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+}
+
+.wc-rodape__marca {
+    font-size: 24px;
+    font-weight: 700;
+    margin-bottom: 16px;
+    display: block;
+}
+
+.wc-rodape__body p {
+    font-size: 15px;
+    color: rgba(255, 255, 255, .8);
+    line-height: 1.5;
+    margin-bottom: 24px;
+}
+
+.wc-rodape__body strong {
+    display: block;
+    font-size: 16px;
+    font-weight: 700;
+    margin-bottom: 16px;
+}
+
+.wc-rodape__socials {
+    display: flex;
+    gap: 12px;
+}
+
+.wc-rodape__social {
+    width: 36px;
+    height: 36px;
+    border-radius: var(--r-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all .4s cubic-bezier(0.25, 0.1, 0.25, 1);
+}
+
+.wc-rodape__social:hover {
+    background: rgba(255, 255, 255, .2);
+}
+
+.wc-rodape__body ul {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.wc-rodape__body ul a {
+    font-size: 15px;
+    color: rgba(255, 255, 255, .8);
+    transition: color .15s;
+}
+
+.wc-rodape__body ul a:hover {
+    color: white;
+}
+
+.wc-rodape__bottom {
+    border-top: 1px solid rgba(255, 255, 255, .1);
+    padding: 24px 16px;
+}
+
+.wc-rodape__bottom-inner {
+    max-width: var(--max-w);
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    text-align: center;
+}
+
+.wc-rodape__bottom span {
+    font-size: 14px;
+    color: rgba(255, 255, 255, .6);
+}
+
+.wc-rodape__bottom a {
+    font-size: 14px;
+    color: rgba(255, 255, 255, .6);
+    transition: color .15s;
+}
+
+.wc-rodape__bottom a:hover {
+    color: white;
+}
