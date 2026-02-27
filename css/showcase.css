@@ -150,3 +150,31 @@
     text-decoration: line-through;
     letter-spacing: -0.15px;
 }
+
+
+
+    .wc-products__title {
+        font-size: 30px;
+    }
+
+    .wc-products__subtitle {
+        font-size: 18px;
+    }
+
+    .wc-products__grid {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 24px;
+    }
+
+    .wc-card__corpo {
+        padding: 16px;
+        gap: 11px;
+    }
+
+    .wc-card__nome {
+        font-size: 16px;
+    }
+
+    .preco {
+        font-size: 18px;
+    }

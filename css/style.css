@@ -105,9 +105,9 @@
     background: linear-gradient(267.79deg, rgba(0, 0, 0, 0) -2.28%, rgba(0, 0, 0, .55) 45%);
 }
 
-.wc-hero__conteudo {
+.wc-hero__content {
     position: absolute;
-    left: 24px;
+    padding-inline: 1.5rem;
     bottom: 56px;
     max-width: 560px;
 }
@@ -147,6 +147,8 @@
     justify-content: center;
     z-index: 10;
     transition: background .15s;
+
+    opacity: 0.2;
 }
 
 .wc-hero__arrow:hover {
@@ -592,26 +594,6 @@
 
 /* media queries */
 @media (min-width: 768px) {
-    .wc-header__topbar {
-        display: block;
-    }
-
-    .wc-header__busca {
-        display: block;
-    }
-
-    .wc-header__entrar {
-        display: flex;
-    }
-
-    .wc-header__nav {
-        display: block;
-    }
-
-    .wc-header__hamburger {
-        display: none;
-    }
-
     .wc-benefits__grid {
         grid-template-columns: repeat(4, 1fr);
     }
@@ -620,7 +602,7 @@
         height: 420px;
     }
 
-    .wc-hero__conteudo {
+    .wc-hero__content {
         left: 32px;
         bottom: 80px;
     }
@@ -639,30 +621,8 @@
         margin-bottom: 32px;
     }
 
-    .wc-products__title {
-        font-size: 30px;
-    }
-
-    .wc-products__subtitle {
-        font-size: 18px;
-    }
-
-    .wc-products__grid {
-        grid-template-columns: repeat(4, 1fr);
-        gap: 24px;
-    }
-
-    .wc-card__corpo {
-        padding: 16px;
-        gap: 11px;
-    }
-
-    .wc-card__nome {
-        font-size: 16px;
-    }
-
-    .preco {
-        font-size: 18px;
+    .wc-hero__arrow {
+        opacity: 1;
     }
 
     .wc-banners__grid {
@@ -728,8 +688,8 @@
         height: 500px;
     }
 
-    .wc-hero__conteudo {
-        left: 48px;
+    .wc-hero__content {
+        margin-left: 10%;
         bottom: 100px;
     }
 

@@ -1,4 +1,3 @@
-// INICIALIZAÇÃO EMAILJS
 emailjs.init("EVzeax0Fu7LjCk4b1");
 
 const form  = document.getElementById('nlForm');
@@ -27,7 +26,6 @@ form.addEventListener('submit', function(e) {
     return;
   }
 
-  // Estado carregando
   msg.className   = 'wc-rodape__nl-msg';
   msg.textContent = 'Enviando...';
 
