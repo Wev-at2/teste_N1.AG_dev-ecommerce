@@ -23,6 +23,7 @@ footer {
 
 .wc-rodape__newsletter form {
     display: flex;
+    flex-wrap: wrap;
     gap: 8px;
     max-width: 448px;
     margin: 0 auto;
